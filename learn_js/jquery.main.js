@@ -328,4 +328,62 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 ////////////////////// 9//////////////////////////////////
+
+function slider(obj){
+	var arrWrapper = document.querySelectorAll(obj.wrapper);
+	var playing = obj.play;
+	var currentSlide = 0;
+	var slideInterval;
+	
+	function eventHendlerClick(holder, allSlide, button){
+		return function(){
+			
+			if(playing) {
+				stopSlider();
+			} else {
+				playSlider();
+			}
+
+			function playSlider() {
+				button.innerHTML = 'STOP';
+				playing = true;
+				slideInterval = setInterval(nextSlide, obj.delay);
+			}
+
+			function stopSlider() {
+				button.innerHTML = 'PLAY';
+				playing = false;
+				clearInterval(slideInterval);
+			}
+
+			function nextSlide() {
+				allSlide[currentSlide].style.display = "none";
+				currentSlide = (currentSlide + 1) % allSlide.length;
+				allSlide[currentSlide].style.display = "block";
+			}
+		};
+	}
+	
+	for(i = 0; i < arrWrapper.length; i++){
+		var thisNav= arrWrapper[i].querySelector(obj.navContainer);
+		var thisOpener = thisNav.querySelector(obj.opener);
+		var thisHolder = arrWrapper[i].querySelector(obj.holder);
+		var arrSlide = thisHolder.querySelectorAll("li");
+		
+		thisOpener.addEventListener(obj.event, eventHendlerClick(thisHolder, arrSlide, thisOpener), false);
+	}
+	
+}
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+	slider({
+		wrapper: ".task9",
+		holder: "#gallery",
+		navContainer: ".nav",
+		opener: "#btn",
+		delay: 500,
+		event: "click",
+		play: false
+	});
+});
 ////////////////////// 10//////////////////////////////////
