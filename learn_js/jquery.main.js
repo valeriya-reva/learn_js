@@ -425,3 +425,55 @@ document.addEventListener("DOMContentLoaded", function(event) {
 		box: "#slider"
 	});
 });
+
+/////////////////////JQuery block/////////////////////////
+
+/////////////////////////1//////////////////////////////
+jQuery(function() {
+	initOpened();
+});
+
+function initOpened(){
+	jQuery('.box').opened({
+		btn: ".button",
+		classAdd: "opened",
+		backgroundEl: ".element"
+	});
+}
+
+jQuery.fn.opened = function(opt) {
+	var options = jQuery.extend({
+		event: "click"
+		
+	}, opt);
+
+	return this.each(function() {
+		var thisBox = jQuery(this);
+		var thisBtn = jQuery(this).find(options.btn);
+		var thisBgEl = jQuery(this).find(options.backgroundEl);
+		
+		thisBtn.bind(options.event, function(e) {
+			
+			e.preventDefault();
+			
+			if(thisBox.hasClass(options.classAdd)){
+				thisBgEl.css("background-color", "inherit");
+				thisBox.removeClass(options.classAdd);
+			} else {
+				thisBgEl.css("background-color", "red");
+				thisBox.addClass(options.classAdd);
+			}
+		});
+	});
+};
+/////////////////////////2/////////////////////////////
+
+
+/////////////////////////3/////////////////////////////
+/////////////////////////4/////////////////////////////
+/////////////////////////5/////////////////////////////
+/////////////////////////6/////////////////////////////
+/////////////////////////7/////////////////////////////
+/////////////////////////8/////////////////////////////
+/////////////////////////9/////////////////////////////
+/////////////////////////10/////////////////////////////
