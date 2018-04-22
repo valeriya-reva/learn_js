@@ -468,8 +468,38 @@ jQuery.fn.opened = function(opt) {
 };
 /////////////////////////2/////////////////////////////
 
+jQuery(function() {
+	initClearInput();
+});
+
+function initClearInput(){
+	jQuery('.hold').opened({
+		
+	});
+}
+
+jQuery.fn.opened = function(opt) {
+	var options = jQuery.extend({
+		event: "focus",
+		enventBlur: "blur"
+	}, opt);
+		
+		jQuery("input").each(function() {
+			var thisValue = jQuery(this).val();
+
+			jQuery(this).focus(function(){
+				jQuery(this).val('');
+			});
+			
+
+		});
+};
+
 
 /////////////////////////3/////////////////////////////
+
+
+
 /////////////////////////4/////////////////////////////
 /////////////////////////5/////////////////////////////
 /////////////////////////6/////////////////////////////
