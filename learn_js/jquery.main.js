@@ -387,3 +387,41 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	});
 });
 ////////////////////// 10//////////////////////////////////
+
+function stickySidebar(obj){
+	var arrHolder = document.querySelectorAll(obj.holder);
+	
+	function eventHendlerScroll (box, thisTop, thisHeight, boxHeight){
+		return function (){
+									
+			if (window.pageYOffset > thisTop && window.pageYOffset < thisTop + thisHeight - boxHeight) {
+				box.style.position = "fixed";
+				box.style.top = "0";
+				box.style.bottom = "auto";
+			} else if(window.pageYOffset < thisTop){
+				box.style.position = "absolute";
+			} else if(window.pageYOffset > thisTop && window.pageYOffset > thisTop + thisHeight - boxHeight){
+				box.style.position = "absolute";
+				box.style.bottom = "0";
+				box.style.top = "auto";
+			}
+		};
+	}
+	
+	for(i = 0; i < arrHolder.length; i++){
+		var thisBox = arrHolder[i].querySelector(obj.box);
+		var holderTop = arrHolder[i].offsetTop;
+		var holderHeight = arrHolder[i].offsetHeight;
+		var thisBoxHeight = thisBox.offsetHeight;
+		
+		window.addEventListener(obj.event, eventHendlerScroll(thisBox, holderTop, holderHeight, thisBoxHeight), false);
+	}
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+	stickySidebar({
+		event: "scroll",
+		holder: "#content",
+		box: "#slider"
+	});
+});
